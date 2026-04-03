@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="/pess/">
 
   <meta charset="UTF-8">
@@ -31,8 +18,70 @@
 
   <title>idata</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- 🎨 Loader Style -->
+  <style>
+    body {
+      margin: 0;
+      background: #121212;
+    }
+
+    #loader {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1e1e1e, #2c2c2c);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: white;
+      font-family: Arial;
+      z-index: 9999;
+    }
+
+    .spinner {
+      border: 6px solid #444;
+      border-top: 6px solid #00bcd4;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    .title {
+      font-size: 18px;
+      opacity: 0.8;
+    }
+  </style>
 </head>
+
 <body>
+
+  <!-- 🚀 شاشة التحميل -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <div class="title"> Loading ...</div>
+  </div>
+
+  <!-- Flutter -->
   <script src="flutter_bootstrap.js" async></script>
+
+  <!-- 🧠 إخفاء اللودر عند تشغيل Flutter -->
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      var loader = document.getElementById('loader');
+      if (loader) {
+        loader.style.opacity = "0";
+        setTimeout(() => loader.remove(), 300); // حذف ناعم
+      }
+    });
+  </script>
+
 </body>
 </html>
